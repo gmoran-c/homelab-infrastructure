@@ -1,0 +1,14 @@
+# Local secrets and runtime state
+.env
+.env.*
+!.env.example
+
+# TLS and WireGuard private material
+*.key
+*.pem
+*_private.key
+
+# Generated logs and local data
+logs/
+*.log
+pgdata/
