@@ -1,17 +1,27 @@
 # HomeLab
 
-Documentación de un servidor doméstico autoalojado con Arch Linux, Docker,
-nginx, PostgreSQL y WireGuard.
+Documentación profesionalizada de un servidor doméstico autoalojado con Arch Linux, Docker, nginx, PostgreSQL y WireGuard.
 
-## Documentación
+## Estado
 
-La documentación completa y depurada está disponible aquí:
+La configuración documentada incluye Docker segmentado, HTTPS con certificado autofirmado temporal, rate limiting, firewalld, WireGuard, fail2ban y administración de Cockpit/SSH limitada a la VPN. El dominio, Let's Encrypt, DuckDNS y algunos mecanismos operativos siguen figurando como pendientes.
 
-[Leer la documentación del servidor](<Server/Documentación/Archivos/Readme depurado.md>)
+Los procedimientos de backup/restore de PostgreSQL y configuración están documentados como **recomendados**, no como automatizaciones ya implementadas. Verifica el estado real del host antes de aplicar cualquier instrucción.
 
-Incluye la arquitectura, la configuración de los servicios, la VPN, el
-firewall, fail2ban, las decisiones de diseño y la bitácora de incidencias.
+## Índice de documentación
 
-> La documentación publicada utiliza placeholders para IPs, dominios,
-> identificadores y secretos. Las credenciales reales deben mantenerse fuera
-> del repositorio, por ejemplo en un archivo `.env` local no versionado.
+- [Documentación completa](docs/README.md)
+- [Arquitectura](docs/overview/architecture.md)
+- [Despliegue Docker](docs/deployment/docker.md)
+- [WireGuard](docs/network/wireguard.md)
+- [firewalld y router](docs/network/firewalld-router.md)
+- [Seguridad y exposición](docs/security/exposure-matrix.md)
+- [fail2ban](docs/security/fail2ban.md)
+- [Operaciones y backup/restore](docs/operations/quick-reference.md)
+- [Backup/restore recomendado](docs/operations/backup-restore.md)
+- [Troubleshooting](docs/troubleshooting/incident-log.md)
+- [Pendientes](docs/operations/roadmap.md)
+
+## Seguridad documental
+
+La documentación usa placeholders como `<TU_IP_PUBLICA>`, `192.168.1.X`, `ppp0.1` y `<...>` para IPs, dominios, identificadores y secretos. Las credenciales reales deben mantenerse fuera del repositorio, por ejemplo en un `.env` local no versionado. `.gitignore` se conserva sin cambios.
