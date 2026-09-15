@@ -44,7 +44,7 @@ findtime = 10m
 maxretry = 5
 
 # Nunca banear la propia LAN ni la subred VPN, para no bloquearse a uno mismo
-ignoreip = 127.0.0.1/8 192.168.1.0/24 10.10.10.0/24
+ignoreip = 127.0.0.1/8 192.0.2.0/24 10.99.0.0/24
 
 [sshd]
 enabled = true
@@ -89,7 +89,7 @@ sudo fail2ban-client status nginx-limit-req
 
 Al probar el rate-limit **desde el propio servidor o desde la LAN/VPN**, fail2ban **nunca** va a banear esa IP — es el comportamiento correcto por diseño:
 - Peticiones hechas a `localhost` llegan a nginx como la IP del gateway de Docker (`172.x.x.x`), y fail2ban la ignora automáticamente por la regla `ignoreself` (protege de que el propio host se banee a sí mismo y rompa su red interna).
-- Peticiones hechas desde la LAN (`192.168.1.0/24`) o desde la VPN (`10.10.10.0/24`) se ignoran por estar explícitamente en `ignoreip`.
+- Peticiones hechas desde la LAN (`192.0.2.0/24`) o desde la VPN (`10.99.0.0/24`) se ignoran por estar explícitamente en `ignoreip`.
 
 Para ver un baneo real en acción hay que generar tráfico desde una IP externa de verdad (por ejemplo, datos móviles **sin VPN activa**, apuntando directo a la IP pública/dominio):
 

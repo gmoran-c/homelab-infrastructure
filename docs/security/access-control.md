@@ -32,10 +32,10 @@ sudo firewall-cmd --zone=trusted --list-all    # SÍ debe listarlos, junto a la 
 ssh usuario@<IP_PUBLICA>
 
 # Con VPN activa — debe funcionar
-ssh usuario@10.10.10.1
-https://10.10.10.1:9090   # Cockpit, con VPN activa
+ssh usuario@10.99.0.1
+https://10.99.0.1:9090   # Cockpit, con VPN activa
 ```
 
-Confirmado y verificado: ambos servicios responden únicamente por `10.10.10.1`, no por la IP pública.
+Confirmado y verificado: ambos servicios responden únicamente por `10.99.0.1`, no por la IP pública.
 
 ---

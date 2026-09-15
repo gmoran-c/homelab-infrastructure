@@ -13,26 +13,26 @@ Configuración de la VPN y guía de operación del cliente. No se incluyen clave
 ```
 Portátil (cliente)
   interfaz: client
-  IP túnel: 10.10.10.2
+  IP túnel: 10.99.0.2
         │
         │  Endpoint = IP_PUBLICA:51820
         ▼
 Router doméstico ([modelo de router del ISP])
-  entrada: ppp0.1 (WAN)
+  entrada: wan0 (WAN)
         │
         ▼
   Firewall → regla "Allow_WireGuard"
   (UDP 51820, Permit)
         │
         ▼
-  NAT → 51820 UDP → 192.168.1.X
+  NAT → 51820 UDP → 192.0.2.X
   (¡debe ser la MISMA interfaz WAN
-   que la regla de firewall: ppp0.1!)
+   que la regla de firewall: wan0!)
         │
         ▼
 Servidor Arch
   interfaz: wg0
-  IP túnel: 10.10.10.1
+  IP túnel: 10.99.0.1
         │
         ▼
   firewalld, zona "public"
@@ -40,8 +40,8 @@ Servidor Arch
 
 ──────────────────────────────
 Túnel cifrado activo:
-10.10.10.2  ⇄  10.10.10.1
-(subred 10.10.10.0/24)
+10.99.0.2  ⇄  10.99.0.1
+(subred 10.99.0.0/24)
 ```
 
 ### 5.2 Archivos — dónde vive cada cosa
@@ -75,14 +75,14 @@ wg genkey | sudo tee server_private.key | wg pubkey | sudo tee server_public.key
 `/etc/wireguard/wg0.conf` (sin `iptables` manuales — el NAT lo gestiona firewalld):
 ```ini
 [Interface]
-Address = 10.10.10.1/24
+Address = 10.99.0.1/24
 ListenPort = 51820
 PrivateKey = <contenido de server_private.key>
 SaveConfig = false
 
 [Peer]
 PublicKey = <client_public.key del portátil>
-AllowedIPs = 10.10.10.2/32
+AllowedIPs = 10.99.0.2/32
 ```
 
 ```bash
@@ -107,12 +107,12 @@ sudo chmod 644 /etc/wireguard/client_public.key
 ```ini
 [Interface]
 PrivateKey = <client_private.key>
-Address = 10.10.10.2/24
+Address = 10.99.0.2/24
 
 [Peer]
 PublicKey = <server_public.key del servidor>
 Endpoint = <TU_IP_PUBLICA>:51820
-AllowedIPs = 10.10.10.0/24
+AllowedIPs = 10.99.0.0/24
 PersistentKeepalive = 25
 ```
 

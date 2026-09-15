@@ -61,8 +61,8 @@ curl -I http://localhost              # debe redirigir (301) a https
 curl -k -I https://localhost          # -k: certificado autofirmado
 curl -k https://localhost/api/
 
-ping 10.10.10.1                        # desde fuera de la red, con VPN activa
-curl -k https://10.10.10.1
+ping 10.99.0.1                          # desde fuera de la red, con VPN activa
+curl -k https://10.99.0.1
 ```
 
 ---

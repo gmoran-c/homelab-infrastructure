@@ -52,6 +52,6 @@ Documentación mantenible del servidor doméstico autoalojado con Arch Linux, Do
 
 ## Convenciones de seguridad
 
-- Conserva `<TU_IP_PUBLICA>`, `192.168.1.X`, `ppp0.1`, `<...>` y las claves placeholder hasta completar los valores localmente.
+- Conserva `<TU_IP_PUBLICA>`, `192.0.2.X`, `wan0`, `<...>` y las claves placeholder hasta completar los valores localmente.
 - Mantén `.env`, claves WireGuard, claves TLS y otros secretos fuera del control de versiones; `.gitignore` se conserva en la raíz.
 - Antes de ejecutar comandos destructivos (por ejemplo `docker compose down -v` o un restore con `--clean`), confirma el objetivo y el backup.

@@ -2,7 +2,7 @@
 
 > Navegación: [índice de documentación](../README.md) · [README del proyecto](../../README.md)
 
-Reglas del host, NAT y firewall del router doméstico. Mantén los placeholders (`<TU_IP_PUBLICA>`, `192.168.1.X`, `ppp0.1`) hasta sustituirlos localmente.
+Reglas del host, NAT y firewall del router doméstico. Mantén los placeholders (`<TU_IP_PUBLICA>`, `192.0.2.X`, `wan0`) hasta sustituirlos localmente.
 
 ## 4. firewalld — servidor
 
@@ -30,7 +30,7 @@ sudo firewall-cmd --reload
 
 ## 6. Router doméstico — NAT y firewall
 
-Router [modelo de router del ISP] (típico de operadores tipo MásOrange/Jazztel en España). Dos configuraciones **independientes**, que deben coincidir en la **misma interfaz WAN** (`ppp0.1` en este caso — no `veip0.2`, ver bitácora #5):
+Router [modelo de router del ISP] (típico de operadores tipo proveedor de Internet). Dos configuraciones **independientes**, que deben coincidir en la **misma interfaz WAN** (`wan0` en este caso — no `wan1`, ver bitácora #5):
 
 ### 6.1 NAT / Port Forwarding
 
@@ -38,24 +38,24 @@ Router [modelo de router del ISP] (típico de operadores tipo MásOrange/Jazztel
 
 | Server Name | Ext. Port | Protocol | Int. Port | Server IP | WAN Interface |
 |---|---|---|---|---|---|
-| WireGuard | 51820 | UDP | 51820 | 192.168.1.X | **ppp0.1** |
-| HTTPS | 443 | TCP | 443 | 192.168.1.X | **ppp0.1** |
+| WireGuard | 51820 | UDP | 51820 | 192.0.2.X | **wan0** |
+| HTTPS | 443 | TCP | 443 | 192.0.2.X | **wan0** |
 
 ### 6.2 Firewall — reglas de excepción
 
 `Advanced Setup → Firewall → Rules`
 
-Por defecto, `WAN_DEFAULT` tiene `Default Action: Drop` para todo lo entrante por `ppp0.1` — hacen falta reglas específicas de excepción:
+Por defecto, `WAN_DEFAULT` tiene `Default Action: Drop` para todo lo entrante por `wan0` — hacen falta reglas específicas de excepción:
 
 | Campo | Valor (WireGuard) |
 |---|---|
 | Active | ✓ |
 | Rule Name | Allow_WireGuard |
-| Interface | ppp0.1 |
+| Interface | wan0 |
 | Direction | Incoming |
 | Protocol | UDP |
 | Source IP/Subnet/Port | *(vacío — cualquier origen)* |
-| Destination IP Address | 192.168.1.X |
+| Destination IP Address | 192.0.2.X |
 | Destination Subnet Mask | 255.255.255.255 |
 | Destination Port | 51820 : 51820 |
 | Action | Permit |
@@ -64,7 +64,7 @@ Mismo patrón replicado para 443/tcp.
 
 ### 6.3 Reserva DHCP
 
-Asignar IP fija al servidor en el router, para que `192.168.1.X` no cambie y desalinee las reglas de NAT/firewall.
+Asignar IP fija al servidor en el router, para que `192.0.2.X` no cambie y desalinee las reglas de NAT/firewall.
 
 ### 6.4 Comprobación de CGNAT (antes de configurar nada de esto)
 

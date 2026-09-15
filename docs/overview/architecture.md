@@ -21,7 +21,7 @@ Router doméstico (NAT + firewall propio)
                          ▼                 ▼
                     interfaz wg0      nginx (contenedor,
                     (túnel VPN,       único servicio con
-                    10.10.10.0/24)    puertos publicados)
+                    10.99.0.0/24)    puertos publicados)
                          │                 │
                          │        ┌────────┴────────┐
                          │        ▼                 │
@@ -56,7 +56,7 @@ Consulta la [matriz de exposición de servicios](../security/exposure-matrix.md)
 - **Solo nginx publica puertos al host**: reduce la superficie expuesta a un único punto de entrada controlado.
 - **WireGuard sobre alternativas más pesadas (OpenVPN)**: más simple, integrado en el kernel, mejor rendimiento.
 - **Cliente WireGuard a demanda, no como servicio permanente**: un portátil no necesita el túnel siempre activo.
-- **NAT + firewall del router en la misma interfaz WAN**: requisito no evidente en routers con múltiples interfaces virtuales (`ppp0.1` vs `veip0.2`), documentado explícitamente para no repetir el error.
+- **NAT + firewall del router en la misma interfaz WAN**: requisito no evidente en routers con múltiples interfaces virtuales (`wan0` vs `wan1`), documentado explícitamente para no repetir el error.
 - **`ignoreip` incluye la propia LAN y subred VPN**: evita que fail2ban banee accidentalmente al propio administrador por probar demasiadas veces seguidas — a costa de que las pruebas locales nunca muestren un baneo real (comportamiento esperado, no un bug).
 - **Cockpit y SSH solo por VPN, nunca en `public`**: reduce la superficie de ataque de los servicios de administración a un único punto controlado (el túnel WireGuard), en vez de exponerlos directamente a todo internet.
 

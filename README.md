@@ -38,7 +38,7 @@ Los procedimientos de backup/restore de PostgreSQL y configuración están docum
 
 ## Seguridad documental
 
-La documentación usa placeholders como `<TU_IP_PUBLICA>`, `192.168.1.X`, `ppp0.1` y `<...>` para IPs, dominios, identificadores y secretos. Las credenciales reales deben mantenerse fuera del repositorio, por ejemplo en un `.env` local no versionado. `.gitignore` se conserva sin cambios.
+La documentación usa placeholders como `<TU_IP_PUBLICA>`, `192.0.2.X`, `wan0` y `<...>` para IPs, dominios, identificadores y secretos. Las credenciales reales deben mantenerse fuera del repositorio, por ejemplo en un `.env` local no versionado. `.gitignore` se conserva sin cambios.
 
 Las subredes privadas y nombres de interfaz que aparecen son valores de ejemplo
 o de laboratorio; deben sustituirse por los de cada instalación. No se incluyen
