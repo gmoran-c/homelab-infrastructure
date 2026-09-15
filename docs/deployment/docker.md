@@ -69,7 +69,7 @@ services:
     expose:
       - "8000"
     environment:
-      - DATABASE_URL=postgresql://user:pass@db:5432/mydb
+      - DATABASE_URL=${DATABASE_URL:?Define DATABASE_URL en .env}
     networks:
       - net_dmz
       - net_backend
@@ -238,5 +238,11 @@ app = FastAPI()
 def root():
     return {"status": "ok"}
 ```
+
+El valor local de `DATABASE_URL` debe usar el formato esperado por la
+aplicación, por ejemplo `postgresql://usuario:contraseña@db:5432/mydb`. El
+usuario, la contraseña y cualquier secreto deben definirse en `.env`, que no se
+versiona. El ejemplo de Compose debe exigir esa variable mediante una
+interpolación `${DATABASE_URL:?...}` y nunca contener credenciales reales.
 
 ---
